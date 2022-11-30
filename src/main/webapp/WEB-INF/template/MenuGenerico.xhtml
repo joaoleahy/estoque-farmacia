@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="file.css" />
+	<title>Sistema Farmácia do Jota</title>
+</h:head>
+
+<body>
+	<header>
+		<div style="float: left; margin-left: 10px">
+			<h:graphicImage library="imagens" name="titulo.png" />
+		</div>
+		<div style="float: right;">
+			<h:graphicImage library="imagens" name="logo.png" width="200" />
+		</div>
+
+		  <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+		
+	</header>
+
+	<ui:insert name="corpo" />
+
+	<footer>
+		<h2>Versão 1.0</h2>
+	</footer>
+
+</body>
+</html>

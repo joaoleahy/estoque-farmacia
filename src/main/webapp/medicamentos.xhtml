@@ -1,0 +1,115 @@
+<ui:composition template="/WEB-INF/template/MenuGenerico.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:growl id="message" showDetail="true" />
+
+			<h:panelGrid columns="3">
+				<p:outputLabel for="medicamento" value="Medicamento" />
+				<p:inputText id="medicamento" size="30"
+					value="#{medicamentoBean.medicamento.nome}" required="true"
+					label="Medicamento" />
+				<p:message for="medicamento" display="icon" />
+
+				<p:outputLabel for="apresentacao" value="Apresentação" />
+				<p:inputText id="apresentacao" size="30"
+					value="#{medicamentoBean.medicamento.apresentacao}" required="true"
+					label="Apresentação" />
+				<p:message for="apresentacao" display="icon" />
+
+				<p:outputLabel for="laboratorio" value="Laboratório" />
+				<p:selectOneMenu id="laboratorio"
+					value="#{medicamentoBean.medicamento.laboratorio}" required="true"
+					label="Laboratório">
+					<f:selectItem itemLabel="Selecione o laboratório"
+						noSelectionOption="true" />
+					<f:selectItem itemLabel="Bayer" itemValue="BAYER" />
+					<f:selectItem itemLabel="Pratidonaduzzi" itemValue="PRATIDONADUZZI" />
+					<f:selectItem itemLabel="E-MS" itemValue="E-MS" />
+					<f:selectItem itemLabel="Legrand" itemValue="LEGRAND" />
+					<f:selectItem itemLabel="Eurofarma" itemValue="EUROFARMA" />
+					<f:selectItem itemLabel="Cimed" itemValue="CIMED" />
+					<f:selectItem itemLabel="Teuto" itemValue="TEUTO" />
+					<f:selectItem itemLabel="Neo Química" itemValue="NEO QUIMICA" />
+					<f:selectItem itemLabel="Actavis" itemValue="ACTAVIS" />
+					<f:selectItem itemLabel="Nova Química" itemValue="NOVA QUIMICA" />
+					<f:selectItem itemLabel="Biossintética" itemValue="BIOSSINTETICA" />
+				</p:selectOneMenu>
+				<p:message for="laboratorio" display="icon" />
+
+				<p:outputLabel for="registro" value="Registro" />
+				<p:inputMask id="registro" mask="9.9999.9999.999-9" size="13"
+					value="#{medicamentoBean.medicamento.registro}" required="true"
+					label="Registro" />
+				<p:message for="registro" display="icon" />
+
+				<p:outputLabel for="preco" value="Preço" />
+				<p:inputText id="preco" size="5"
+					value="#{medicamentoBean.medicamento.preco}" required="true"
+					label="Preço">
+					<f:convertNumber minFractionDigits="2" locale="pt_BR"
+						minIntegerDigits="0" />
+				</p:inputText>
+				<p:message for="preco" display="icon" />
+
+				<p:outputLabel />
+				<p:commandButton value="Cadastrar"
+					action="#{medicamentoBean.adicionar()}" update="frm tabela"
+					style="margin-top: 10px" />
+
+			</h:panelGrid>
+
+			<p:dataTable value="#{medicamentoBean.medicamentos}" var="m"
+				id="tabela" paginator="true" rows="5">
+				<p:column headerText="Medicamento">
+					<p:outputLabel value="#{m.nome}" />
+				</p:column>
+
+				<p:column headerText="Apresentação" width="200">
+					<p:outputLabel value="#{m.apresentacao}" />
+				</p:column>
+
+				<p:column headerText="Laboratório" width="200">
+					<p:outputLabel value="#{m.laboratorio}" />
+				</p:column>
+
+				<p:column headerText="Registro MS" width="150">
+					<p:outputLabel value="#{m.registro}" />
+				</p:column>
+
+				<p:column headerText="Preço" width="100">
+					<p:outputLabel value="#{m.preco}">
+						<f:convertNumber type="currency" currencySymbol="R$" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="" width="100">
+					<p:commandButton icon="pi pi-pencil" update="@form" process="@this">
+						<f:setPropertyActionListener value="#{m}"
+							target="#{medicamentoBean.medicamento}" />
+						<p:confirm header="Editar"
+							message="Tem certeza que deseja editar #{m.nome}?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:commandButton action="#{medicamentoBean.excluir()}"
+						icon="pi pi-trash" update="frm tabela" process="@this">
+						<p:confirm header="Remover"
+							message="Tem certeza que deseja remover #{m.nome}?"
+							icon="pi pi-exclamation-triangle" />
+						<f:setPropertyActionListener value="#{m}"
+							target="#{medicamentoBean.medicamento}" />
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
